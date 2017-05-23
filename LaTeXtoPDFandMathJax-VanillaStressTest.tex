@@ -593,7 +593,9 @@ A baseline of text which is a single line long in 12pt font with no indent appli
 
 We will use the robust single dollar environment for these
 
-Math versions of text symbols: $\$  \_  \ddag  \{  \P  \dots  \}  \S  \dag  \pounds \copyright$
+Math versions of text symbols: $\$  \_  \ddag  \{  \dots  \}  \dag  \pounds \copyright$
+
+Math versions of text symbols which disappear in Word: $\P$  $\S$
 
 Keyboard symbols: $+  -  =  <  >  /  :  !  '  |  [  ]  (  )$
 
@@ -632,15 +634,18 @@ A  B  C  D  E  F  G  H  I  J  K  L  M  N  O  P  Q  R  S  T  U  V  W  X  Y  Z
 %\end{equation}\unboldmath
 
 
-Italic, lower case:
-\begin{equation}
-\mathit{a}~\mathit{b}~\mathit{c}~\mathit{d}~\mathit{e}~\mathit{f}~\mathit{g}~\mathit{h}~\mathit{i}~\mathit{j}~\mathit{k}~\mathit{l}~\mathit{m}~\mathit{n}~\mathit{o}~\mathit{p}~\mathit{q}~\mathit{r}~\mathit{s}~\mathit{t}~\mathit{u}~\mathit{v}~\mathit{w}~\mathit{x}~\mathit{y}~\mathit{z}
-\end{equation}
+%Italic is the same as normal
+%Italic, lower case:
+%\begin{equation}
+%\mathit{a}~\mathit{b}~\mathit{c}~\mathit{d}~\mathit{e}~\mathit{f}~\mathit{g}~\mathit{h}~\mathit{i}~\mathit{j}~\mathit{k}~\mathit{l}~\mathit{m}~\mathit{n}~\mathit{o}~\mathit{p}~\mathit{q}~\mathit{r}~\mathit{s}~\mathit{t}~\mathit{u}~\mathit{v}~\mathit{w}~\mathit{x}~\mathit{y}~\mathit{z}
+%\end{equation}
+%
+%Italic, upper case:
+%\begin{equation}
+%\mathit{A}~\mathit{B}~\mathit{C}~\mathit{D}~\mathit{E}~\mathit{F}~\mathit{G}~\mathit{H}~\mathit{I}~\mathit{J}~\mathit{K}~\mathit{L}~\mathit{M}~\mathit{N}~\mathit{O}~\mathit{P}~\mathit{Q}~\mathit{R}~\mathit{S}~\mathit{T}~\mathit{U}~\mathit{V}~\mathit{W}~\mathit{X}~\mathit{Y}~\mathit{Z}
+%\end{equation}
 
-Italic, upper case:
-\begin{equation}
-\mathit{A}~\mathit{B}~\mathit{C}~\mathit{D}~\mathit{E}~\mathit{F}~\mathit{G}~\mathit{H}~\mathit{I}~\mathit{J}~\mathit{K}~\mathit{L}~\mathit{M}~\mathit{N}~\mathit{O}~\mathit{P}~\mathit{Q}~\mathit{R}~\mathit{S}~\mathit{T}~\mathit{U}~\mathit{V}~\mathit{W}~\mathit{X}~\mathit{Y}~\mathit{Z}
-\end{equation}
+In Word the roman alphabets remain in italics which is not correct. This does not affect the bold which is as expected. 
 
 Roman, lower case:
 \begin{equation}
@@ -669,8 +674,12 @@ Calligraphic (upper case only):
 
 Binary operators:
 \begin{equation}
-\pm \mp \times \div \cdot \ast \star \dagger \ddagger \amalg \cap \cup \uplus \sqcap \sqcup \vee \wedge \oplus \ominus \otimes \circ \bullet \diamond \oslash \odot \bigcirc \bigtriangleup \bigtriangledown \triangleleft \triangleright \setminus \wr
+\pm \mp \times \div \cdot \ast \star \dagger \ddagger \amalg \cap \cup \uplus \sqcap \sqcup \vee \wedge \oplus \ominus \otimes \circ \bullet \oslash \odot  \bigtriangleup  \triangleleft \triangleright \setminus \wr
 \end{equation}
+
+Unknown symbol in Word: $\diamond$ $\bigtriangledown$
+
+Completely disappears in Word: $\bigcirc$
 
 Relations:
 \begin{equation}
@@ -681,7 +690,7 @@ Relations:
 Negated which work:
 $\not<$ $\not\leq$ $\not\subseteq$  $\not\in$ $\notin$ $\not\vdash$ $\not\models$ $\not>$ $\not\geq$ $\not\supseteq$ $\not=$ $\not\cong$ $\not\prec$ $\not\succ$ $\not\sim$ 
 
-Turn into raw LaTeX-like encoding in Word:
+Turn into raw LaTeX-like encoding in Word and look broken in MathJax:
 $\not\le$ $\not\ll$ $\not\ge$ $\not\gg$ $\not\dashv$ $\not\perp$ $\not\doteq$ $\not\propto$ $\not\preceq$ 
 $\not\smile$ $\not\frown$ $\not\bowtie$ $\not\succeq$
 
@@ -693,18 +702,24 @@ Arrows:
 \leftarrow \gets \Leftarrow \rightarrow \to \Rightarrow \leftrightarrow \Leftrightarrow \mapsto \hookleftarrow \leftharpoonup \leftharpoondown \rightleftharpoons \longleftarrow \Longleftarrow \longrightarrow \Longrightarrow 
 \end{equation}
 \begin{equation}
-\longleftrightarrow \Longleftrightarrow \iff \longmapsto \hookrightarrow \rightharpoonup \rightharpoondown \uparrow \Uparrow \downarrow \Downarrow \updownarrow \Updownarrow \nearrow \searrow \swarrow \nwarrow
+\longleftrightarrow \Longleftrightarrow \iff \longmapsto \hookrightarrow \rightharpoonup \rightharpoondown \uparrow  \downarrow  \updownarrow  \nearrow \searrow \swarrow \nwarrow
 \end{equation}
+
+Look odd in MathJax but fine in Word: $\Uparrow$ $\Downarrow$ $\Updownarrow$
 
 Other:
 \begin{equation}
-\aleph \hbar \imath \jmath \ell \wp \Re \Im \prime \emptyset \nabla \surd \partial \top \bot \vdash \dashv \forall \exists \neq \flat \natural \sharp \| \angle \backslash \triangle \clubsuit \diamondsuit \heartsuit \spadesuit \infty
+\aleph \hbar \imath \jmath \ell \wp \Re \Im \prime \emptyset \nabla \surd \partial \top \bot \vdash \dashv \forall \exists \neq  \| \angle \backslash \triangle  \heartsuit \spadesuit \infty
 \end{equation}
+
+Unknown symbol in Word: $\flat$ $\natural$ $\sharp$ $\clubsuit$ $\diamondsuit$
 
 Symbols with two sizes: 
 \begin{center}
 $\sum \int \oint \prod \coprod \bigcap \bigcup \bigsqcup \bigvee \bigwedge \bigodot \bigotimes \bigoplus \biguplus$
 \end{center}
+
+In Word the below are not enlarged - this probably depends on context though in Word equations.
 \begin{equation}
 \sum \int \oint \prod \coprod \bigcap \bigcup \bigsqcup \bigvee \bigwedge \bigodot \bigotimes \bigoplus \biguplus
 \end{equation}
@@ -725,23 +740,27 @@ Those with under-subscript available:
 \det_{a} \gcd_{a} \inf_{a} \lim_{a} \liminf_{a} \limsup_{a} \max_{a} \min_{a} \Pr_{a} \sup_{a}
 \end{equation}
 
-Modulus:
+Modulus, spacing is incorrect on the first of these in Word:
 \begin{equation}
 a \bmod b \qquad a \pmod{b}
 \end{equation}
 
-Accents and under/over:
+Accents and under/over. Most of these don't seem to work in Word but this should be investigated further as it may be a context issue. 
 \begin{equation}
 \hat{a} \check{a} \dot{a} \breve{a} \acute{a} \ddot{a} \grave{a} \tilde{a} \mathring{a} \bar{a} \vec{a} \widehat{aaa} \widetilde{aaa} \overline{aaa} \underline{aaa} \overbrace{aaa} \underbrace{aaa}
 \end{equation}
 
-Symbols left and right can be applied to:
+Symbols left and right can be applied to. None of the arrows stretch in Word, could be context. 
 \begin{equation}
-\left( \frac{1}{2} \right) \left[ \frac{1}{2} \right] \left\{ \frac{1}{2} \right\} \left| \frac{1}{2} \right| \left/ \frac{1}{2} \right\backslash \left\lfloor \frac{1}{2} \right\rfloor \left\lceil \frac{1}{2} \right\rceil \left\langle \frac{1}{2} \right\rangle \left\uparrow \frac{1}{2} \right\uparrow \left\downarrow \frac{1}{2} \right\downarrow \left\updownarrow \frac{1}{2} \right\updownarrow \left\Uparrow \frac{1}{2} \right\Uparrow \left\Downarrow \frac{1}{2} \right\Downarrow \left\Updownarrow \frac{1}{2} \right\Updownarrow   
+\left( \frac{1}{2} \right) \left[ \frac{1}{2} \right] \left\{ \frac{1}{2} \right\} \left| \frac{1}{2} \right| \left\lfloor \frac{1}{2} \right\rfloor \left\lceil \frac{1}{2} \right\rceil \left\langle \frac{1}{2} \right\rangle \left\uparrow \frac{1}{2} \right\uparrow \left\downarrow \frac{1}{2} \right\downarrow \left\updownarrow \frac{1}{2} \right\updownarrow \left\Uparrow \frac{1}{2} \right\Uparrow \left\Downarrow \frac{1}{2} \right\Downarrow \left\Updownarrow \frac{1}{2} \right\Updownarrow   
 \end{equation}
 
-%Word doesn't seem to honour these unless there is something of a specific height inside - perhaps they end up mapping to matching brackets? Find out
-Manual sizing:
+Incorrect in both Word and MathJax:
+\begin{equation}
+\left/ \frac{1}{2} \right\backslash 
+\end{equation}
+
+Manual sizing. Word doesn't seem to honour these unless there is something of a specific height inside - perhaps they end up mapping to matching brackets? Find out.
 \begin{equation}
 \big( \big) \big[ \big] \big\{ \big\} \big\lfloor \big\rfloor \big\lceil \big\rceil \big\langle \big\rangle 
 \big/ \big\backslash \big| \big\| \big\uparrow \big\Uparrow \big\downarrow \big\Downarrow \big\updownarrow \big\Updownarrow
@@ -845,6 +864,7 @@ Now for an equation array:
 \overline{\underline{a} + \overline{b + \underline{c} + d} + \overline{\overline{e}}}
 \]
 
+Underbrace and overbrace aren't working correctly in Word - find out why since I know that we can do this in Word.
 \[
 \underbrace{a + \overbrace{b + c}^{=0} + d}_{\mbox{text}}
 \]
