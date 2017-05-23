@@ -251,7 +251,7 @@ This is the vanilla \LaTeX~ test document compiled from \LaTeX~ into multiple fo
 \item \href{https://stem-enable.github.io/LaTeXtoPDFandMathJax-VanillaStressTest/LaTeXtoPDFandMathJax-VanillaStressTest.docx}{Accessible Word document}
 \end{itemize}
 
-The primary purpose of this document is to test setups with basic \LaTeX~ which does not use any AMS or graphics packages. 
+The primary purpose of this document is to test parts of basic \LaTeX~ (no AMS or external graphics) under various transforms. The content of this document is {\bf not} a description of a transformable set of \LaTeX~which will certainly be smaller.  
 
 \newpage
 
@@ -842,10 +842,15 @@ Now for an equation array:
 \]
 
 \[
-{a \atop b} {a \choose b}
+{a \choose b}
+\]
+
+\[
+{a \atop b} 
 \]
 
 \end{document}
+
 
 \begin{eqnarray*}
 &&a = b = c = d = e = f = g = h = i = j = k = l = m = n = o = p = q = r = s = t\\
