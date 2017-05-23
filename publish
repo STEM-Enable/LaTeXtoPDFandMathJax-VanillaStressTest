@@ -1,0 +1,1 @@
+git subtree push --prefix built/LaTeXtoPDFandMathJax-VanillaStressTest-web origin gh-pages

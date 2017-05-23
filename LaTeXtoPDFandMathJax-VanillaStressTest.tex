@@ -1,0 +1,911 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Use a minimum font size of 12pt and specify a4paper
+%% for ease of display and printing in the UK
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\documentclass[12pt,a4paper]{article}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Geometry package to change margins etc.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+\usepackage[a4paper,margin=2.5cm]{geometry}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Babel package to specify English typographical 
+%% rules, and hyphenation patterns
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage[english]{babel}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% T1 font encoding to ensure characters with accents 
+%% and other non-ascii characters can be correctly 
+%% searched, copied and pasted in the PDF output. Also 
+%% enables hyphenation of words containing letters 
+%% with accents.
+%%
+%% Note, you should have cm-super installed otherwise
+%% computer modern fonts will be bitmaps. 
+%% If this is a problem then move this command inside
+%% a clearprint toggle below. 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage[T1]{fontenc}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% This is the master for 3 document formats.
+%% We DO NOT support compiling via latex-dvips-ps2pdf. 
+%% If you wish to use diagrams which rely on this 
+%% then these should be produced as standalone figures 
+%% in PDF and svg formats and included in the LaTeX
+%% via the graphicx package.
+%%
+%% Standard print: Compiled via pdflatex. You can 
+%% style how you provided you can compile the other
+%% formats.
+%% 
+%% Clearprint: Compiled via pdflatex. 
+%%
+%% Accessible web pages via TeX4ht with MathJax
+%% as the renderer: for zoom, magnification, text to 
+%% speech (TextHelp Read & Write), screenreaders 
+%% (NVDA, JAWS 16+, ChromeVox, other Aria aware), 
+%% electronic braille (NVDA), also good on small 
+%% screens. 
+\usepackage{etoolbox}
+\newtoggle{clearprint}
+\newtoggle{web}
+%% The below uses the make file to determine which 
+%% format to compile. Please note that compilation 
+%% requires a post-2009 version of etoolbox and, for 
+%% the web format, a working copy of TeX4ht. 
+%% Using the makefile is the recommended compilation 
+%% method as this will produce a single zip containing
+%% the web format for you. 
+\input{toggle.tex}
+%% If you are NOT using the make file you may 
+%% uncomment one of the below:
+%%
+%% Standard print PDF. Compiled via pdflatex:
+%\togglefalse{clearprint}\togglefalse{web}
+%%
+%% Clear print PDF. Compiled via pdflatex: 
+%\toggletrue{clearprint}\togglefalse{web}
+%%
+%%Accessible web format. Requires TeX4ht - see 
+%% make file for commands to run: 
+%\togglefalse{clearprint}\toggletrue{web}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Standard packages loaded.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Only graphicx and the picture environment can 
+%% be used for graphics.  
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%In this test document we are not using amslatex
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%\usepackage{amsmath,amssymb,amsfonts,amsthm}
+\usepackage{hyperref} %% We rely on this
+%%
+%% Graphicx must be loaded whether used or not as 
+%% TeX4ht compilation expects it.
+%% We can deal with EPS figures but this is not 
+%% covered in this example.  
+\usepackage{graphicx} %% We rely on this
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%In this test document we are not using external figures
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%\graphicspath{{./figures/}} 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Other packages may not work for this process.
+%% See the second example for further packages. 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{verbatim}
+\usepackage{longtable}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Requirements for clearprint/web version
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\ifboolexpr{togl {clearprint} or togl {web}}{
+%% Change font to Helvetica and heavier verbatim font
+\renewcommand{\familydefault}{phv}
+\fontfamily{phv}\selectfont
+\usepackage[scaled=0.95]{DejaVuSansMono}
+
+%% Emphasis in bold only - add additional examples 
+%% as per resource
+\renewcommand{\em}{\bf}
+\renewcommand{\textit}{\textbf}
+\renewcommand{\emph}{\textbf}
+\renewcommand{\it}{\bf }
+
+%% Additional spacing - may not be honoured in 
+%% web version
+\setlength{\parindent}{0.0pt}
+\setlength{\parskip}{1.0\baselineskip}
+\renewcommand{\baselinestretch}{1.25}\selectfont
+\mathsurround 0.2em
+\setlength{\arraycolsep}{0.5cm}\renewcommand{\arraystretch}{1.25}
+\addtolength{\jot}{0.5\baselineskip}
+\sloppy
+%% \allowdisplaybreaks %This relies on ams
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Commands used to provide alternative text for 
+%% diagrams for a screenreader user.
+%% DO NOT remove the macros from the preamble even if
+%% you are not using them as the web compilation 
+%% expects them to be defined.
+\newcommand{\nextalt}[1]{} 
+\newcommand{\PICalt}[1]{{#1}} 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% In this test we are NOT testing ams theorem envs
+%% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% %% You can style your theorems etc. as you like but 
+%% %% in clearprint and accessible web use a clearprint 
+%% %% style to open up spacing, use bold for emphasis 
+%% %% and to avoid large parts of text in italics. 
+%% \ifboolexpr{togl {clearprint} or togl {web}}
+%% {
+%% \newtheoremstyle{clearprint}
+%% {20pt}% space above
+%% {3pt}% space below
+%% {}% body font
+%% {}% indent amount
+%% {\bfseries}% theorem head font
+%% {.\newline }% punctuation after theorem head
+%% {1.0em}% space after theorem head
+%% {}% theorem head spec, can be left empty meaning normal
+%% \theoremstyle{clearprint}
+%% \newenvironment{Proof}
+%% {\noindent{\bf Proof.}\hspace*{1em}}% Begin
+%% {\qed\par}% End
+%% }
+%% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% %% Leave a blank line after this
+
+%% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% %% In default style in standard print
+%% \newtheorem*{example*}{Example}
+%% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% %% Change to definition style for the standard print
+%% \ifboolexpr{togl {clearprint} or togl {web}}
+%% {\theoremstyle{clearprint}}
+%% {\theoremstyle{definition}}
+%% %% Leave a blank line after this
+
+%% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% %% In definition style unless in clearprint
+%% \newtheorem*{definition*}{Definition}
+%% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% %% Change to remark style for the standard print
+%% \ifboolexpr{togl {clearprint} or togl {web}}
+%% {\theoremstyle{clearprint}}
+%% {\theoremstyle{remark}}
+%% %% Leave a blank line after this
+
+%% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% %% In remark style unless in clearprint
+%% \newtheorem*{remark*}{Remark}
+%% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Place any document specific commands here
+\newtheorem{theorem}{Theorem}[section] %% This is not ams
+\newcommand{\xsb}{x_{1}}
+\newcommand{\xsp}{x^{2}}
+\newcommand{\xsbnum}[1]{x_{#1}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Define front matter
+\title{Stress test document}
+\author{Emma Cliffe}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Ensure front matter and table of contents are 
+%% page numbered separately from the body
+%% Use headings style so that each page has a label
+\ifboolexpr{togl {clearprint} or togl {web}}{
+\pagestyle{headings}
+\pagenumbering{roman}
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% End the preamble
+\begin{document}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\maketitle
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% In longer documents place a newpage before the tables
+%% You may not want all of the tables in all formats
+%% \newpage 
+\tableofcontents
+\listoffigures
+\listoftables
+\newpage
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Page numbering for the body of the document starts
+\pagenumbering{arabic}
+\setcounter{page}{1}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% If a section/subsection/subsubsection is unnumbered
+%% but it makes sense to add it to the table of 
+%% contents for the web version then add contents
+%% line by hand. 
+\section*{Using this document}
+\ifboolexpr{not (togl {web})}{\addcontentsline{toc}{section}{Using this document}}
+
+This is the vanilla \LaTeX~ test document compiled from \LaTeX~ into multiple formats:
+\begin{itemize} 
+\item \href{https://stem-enable.github.io/LaTeXtoPDFandMathJax-VanillaStressTest/LaTeXtoPDFandMathJax-VanillaStressTest-standard.pdf}{Standard print PDF}
+\item \href{https://stem-enable.github.io/LaTeXtoPDFandMathJax-VanillaStressTest/LaTeXtoPDFandMathJax-VanillaStressTest-clear.pdf}{Clearer print PDF}
+\item \href{https://stem-enable.github.io/LaTeXtoPDFandMathJax-VanillaStressTest/}{Accessible web format}
+\item \href{https://stem-enable.github.io/LaTeXtoPDFandMathJax-VanillaStressTest/LaTeXtoPDFandMathJax-VanillaStressTest.docx}{Accessible Word document}
+\end{itemize}
+
+The primary purpose of this document is to test setups with basic \LaTeX~ which does not use any AMS or graphics packages. 
+
+\newpage
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Start of Vanilla stress test
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Standard fonts and symbols}
+
+\noindent
+A baseline of text which is a single line long in 12pt font with no indent applied.
+
+\begin{center}
+Centered text.
+\end{center}
+
+\begin{flushleft}
+Flush left text.
+\end{flushleft}
+
+\begin{flushright}
+Flush right text.
+\end{flushright}
+
+\noindent
+A baseline of text which is a single line long in 12pt font with no indent applied.
+
+Standard text. {\tiny Tiny text.} {\scriptsize Scriptsize text.} {\footnotesize Footnotesize text.} {\small Small text.} {\normalsize Normalsize text.} {\large large text.} {\Large Large text.} {\LARGE LARGE text.} {\huge huge text.} {\Huge Huge text.}
+
+Standard text. \emph{Emphasized text}. \textrm{Roman text.} {\rm Roman inline.} \textsc{Small caps text.} {\sc Small caps inline} \texttt{Typewriter text.} {\tt Typewriter inline.} \textit{Italics text.} {\it Italics inline.} \textsf{Sans serif text.} {\sf San serif inline.} \textsl{Slant text.} {\sl Slant inline.}  \textbf{Bold text.} {\bf Bold inline.} \textbf{A combination of bold and \textit{italic text.}} {\bf A combination inline of bold {\it and inline italics}.}
+
+\newpage
+
+\section{Taken from the comprehensive symbol list}
+
+\noindent
+Special characters: \$  \%  \_  \}  \&  \#  \{
+
+\noindent
+Textmode characters: 
+\par\noindent
+\textasciicircum  \textless  \textasciitilde  \textordfeminine    \textasteriskcentered  \textordmasculine  \textbackslash  \textparagraph  \textbar  \textperiodcentered  \textbraceleft  \textquestiondown  \textbraceright  \textquotedblleft  \textbullet  \textquotedblright  \textcopyright  \textquoteleft  \textdagger  \textquoteright  \textdaggerdbl  \textregistered  \textdollar  \textsection  \textellipsis  \textsterling  \textemdash  \texttrademark  \textendash  \textunderscore  \textexclamdown  \textvisiblespace  \textgreater                                                      
+
+\noindent
+Mathmode and textmode: \$  \_  \ddag  \{  \P  \copyright  \dots  \}  \S  \dag  \pounds
+
+\noindent
+Accents: \"{a}  \'{a}  \.{a}  \={a}  \^{a}  \`{a}  \  {a}  \b{a}  \c{a}  \d{a}  \H{a}  \r{a}  \t{a}  \u{a}  \v{a}  \textcircled{a}  \i  \j  \"{\i}
+
+\bigskip
+
+For mathematical symbols, see the section \ref{maths-symbols}. 
+
+\newpage
+
+\section{Standard structures}
+
+\noindent
+A baseline of text which is a single line long in 12pt font with no indent applied.
+
+\begin{quote}
+In the quote environment [paragraphs] are indicated with more vertical spacing between them. 
+
+Additional vertical spacing is inserted above and below the displayed text to separate it visually from the the normal text.
+\end{quote}
+
+A baseline of text to show the height change in the above and below environments. This line was indented though to show off the next environment. The quotations are from ``A Guide to \LaTeX'' \cite{KopkaDaly}
+
+\begin{quotation}
+In the quotation environment, paragraphs are marked by extra indentation of the first line. 
+
+The quotation environment is only really meaningful when the regular text makes use of first-line indentation to show off new paragraphs.
+\end{quotation}
+
+%ignored verse enivironment
+
+\noindent
+A baseline of text which is a single line long in 12pt font with no indent applied.
+
+\begin{itemize}
+\item An itemized list
+\item Using standard itemize
+\begin{itemize}
+\item With a level 2 sub-point
+\begin{itemize}
+\item With a level 3 sub-point
+\begin{itemize}
+\item With a level 4 sub-point
+\end{itemize}
+\end{itemize}
+\end{itemize}
+\item[\&] Or I can control the marker manually
+\end{itemize}
+
+\noindent
+A baseline of text which is a single line long in 12pt font with no indent applied.
+
+Same list with redefinition using renewcommand of the labels labelitem(i-iv)
+\begin{itemize}
+\renewcommand{\labelitemi}{*}
+\renewcommand{\labelitemii}{**}
+\renewcommand{\labelitemiii}{***}
+\renewcommand{\labelitemiv}{****}
+\item An itemized list
+\item Using standard itemize
+\begin{itemize}
+\item With a level 2 sub-point
+\begin{itemize}
+\item With a level 3 sub-point
+\begin{itemize}
+\item With a level 4 sub-point
+\end{itemize}
+\end{itemize}
+\end{itemize}
+\item[\&] Or I can control the marker manually
+\end{itemize}
+
+\begin{itemize}
+\item Because the renewcommands were contained in the environment they are not global
+\end{itemize}
+
+\noindent
+A baseline of text which is a single line long in 12pt font with no indent applied.
+
+\begin{enumerate}
+\item An enumerated list
+\item Using standard enumerate
+\begin{enumerate}
+\item With a level 2 sub-point
+\begin{enumerate}
+\item With a level 3 sub-point
+\begin{enumerate}
+\item With a level 4 sub-point
+\end{enumerate}
+\end{enumerate}
+\end{enumerate}
+\item[\&] Or I can control the marker
+\end{enumerate}
+
+\noindent
+A baseline of text which is a single line long in 12pt font with no indent applied.
+
+Same list with redefinition using renewcommand of the labels labelenum(i-iv) by application of arabic, roman, Roman, alph or Alph
+\begin{enumerate}
+\renewcommand{\labelenumi}{\Roman{enumi}.}
+\renewcommand{\labelenumii}{\roman{enumii}.}
+\renewcommand{\labelenumiii}{\Alph{enumiii}.}
+\renewcommand{\labelenumiv}{\alph{enumiv}.}
+\item An enumerated list
+\item Using standard enumerate
+\begin{enumerate}
+\item With a level 2 sub-point
+\begin{enumerate}
+\item With a level 3 sub-point
+\begin{enumerate}
+\item With a level 4 sub-point
+\end{enumerate}
+\end{enumerate}
+\end{enumerate}
+\item[\&] Or I can control the marker
+\end{enumerate}
+
+\begin{enumerate}
+\item Because the renewcommands were contained in the environment they are not global
+\end{enumerate}
+
+\noindent
+A baseline of text which is a single line long in 12pt font with no indent applied.
+
+\begin{description}
+\item[first] The marker is a description
+\item[second] in the description environment
+\item But it is optional
+\end{description}
+
+%ignored the bibliography (non bibtex) for now
+%ignored generalised lists for now
+
+\noindent
+A baseline of text which is a single line long in 12pt font with no indent applied.
+
+\begin{theorem}[Title of the theorem]
+This is a theorem that has been produced without the AMS theorem environment or package
+\end{theorem}
+
+\noindent
+A baseline of text which is a single line long in 12pt font with no indent applied.
+
+\begin{tabbing}
+There is the \=tabbing environment which lines\\
+\>this with tabbing above \= and\+\\
+\>this with and\\
+and this with tabbing again\-\\
+until I backwards tab
+\end{tabbing}
+
+\noindent
+A baseline of text which is a single line long in 12pt font with no indent applied.
+
+\bigskip
+
+\noindent
+\fbox{This text is framed in a box. The width is determined by the text.}
+
+\bigskip
+
+\noindent
+\framebox[0.5\textwidth]{This box is 0.5 textwidth wide}
+
+\bigskip
+
+\noindent
+A baseline of text which is a single line long in 12pt font with no indent applied.
+
+\bigskip
+
+\noindent
+\parbox{0.5\textwidth}{This is a parbox half the textwidth of the page. \par This is the second paragraph in the box.}
+
+\bigskip
+
+\noindent
+\fbox{\parbox{0.5\textwidth}{This is a parbox half the textwidth of the page. \par This is the second paragraph in the box.}}
+
+\bigskip
+
+\noindent
+\begin{minipage}{0.5\textwidth}This is a minipage half the textwidth of the page. \par This is the second paragraph in the minipage.\end{minipage}\hfill
+\begin{minipage}{0.3\textwidth}A second minipage is over here...\end{minipage}
+
+\bigskip
+
+\noindent
+\rule{\textwidth}{\baselineskip}
+
+\bigskip
+
+%We want to allow tabular, longtable (maybe later tabular* and maybe tabularx)
+\begin{table}[t]\label{table}
+\begin{tabular}{|l*{2}{|c|}r|@{insert}|p{2cm}}
+%\begin{tabu} to 0.5\textwidth {|X*{2}{|X|}X|@{insert}|X}
+\hline
+a & b & c & d & abcde\\
+\cline{1-4}
+\multicolumn{4}{c}{abcd}\vline & abcde\\
+\hline
+$\frac{a}{e}$ & $\frac{b}{e}$ & $\frac{c}{e}$ & $\frac{d}{e}$ & $\alpha\beta\gamma\delta\epsilon$ \\
+\hline
+\end{tabular}
+\caption{This is a table}
+\end{table}
+
+\noindent
+This is just below where the floating table \ref{table} was defined. It should appear at the top of either this page or the page after this. 
+
+\bigskip
+
+\begin{center}
+\renewcommand{\arraystretch}{2}
+%\begin{longtabu} to \textwidth {*{3}{|X|}}
+\begin{longtable}{*{3}{|l|}}
+\hline
+\textbf{First} & \textbf{Second} & \textbf{Third} \\
+\hline
+\endfirsthead
+\multicolumn{3}{c}%
+{\tablename\ \thetable\ -- \textit{Continued from previous page}} \\
+\hline
+\textbf{First} & \textbf{Second} & \textbf{Third} \\
+\hline
+\endhead
+\hline \multicolumn{3}{r}{\textit{Continued on next page}} \\
+\endfoot
+\hline
+\endlastfoot
+\hline
+This is the first line & & \\
+\hline
+This is the second line & $1 \times 2$ & \\
+\hline
+This is the third line & $1 \times 2 \times 3$ & $6$\\
+\hline
+This is the fourth line & $1 \times 2 \times 3 \times 4$ & $24$\\
+\hline
+This is the fifth line & $1 \times 2 \times 3 \times 4 \times 5$ & $120$\\
+\hline
+This is the sixth line & $1 \times 2 \times 3 \times 4 \times 5 \times 6$ & $720$\\
+\hline
+This is the seventh line & $1 \times 2 \times 3 \times 4 \times 5 \times 6 \times 7$ & $5040$\\
+\hline
+This is the eighth line & $1 \times 2 \times 3 \times 4 \times 5 \times 6 \times 7 \times 8$ & $40320$\\
+\hline
+& The & End\\
+\hline
+\end{longtable}
+\end{center}
+
+\bigskip
+
+\begin{verbatim}
+This text should be printed verbatim with a linebreak here
+  then two spaces at the start of this line which breaks here
+> this line has a prompt at the start and now some braces {}
+\end{verbatim}
+
+\bigskip
+
+This next \verb=verbatim= but with spaces shown\footnote{The word verbatim used inline verbatim.}. 
+
+\bigskip
+A piece \verb=of verbatim text that we are using to test line breaking=.
+
+\begin{verbatim*}
+This text should be printed verbatim with a linebreak here
+  then two spaces at the start of this line which breaks here
+> this line has a prompt at the start and now some braces {}
+\end{verbatim*}
+
+\bigskip
+
+\noindent
+A baseline of text which is a single line long in 12pt font with no indent applied.\marginpar{Note\\ in the\\ margin.}
+
+\vspace{4\baselineskip}
+
+\noindent
+A baseline of text which is a single line long in 12pt font with no indent applied.\marginpar{\rule[-1ex]{0.3em}{4ex}}
+
+\newpage
+
+\section{Standard mathematics}
+
+\subsection{Standard mathematical symbols\label{maths-symbols}}
+
+We will use the robust single dollar environment for these
+
+Math versions of text symbols: $\$  \_  \ddag  \{  \P  \dots  \}  \S  \dag  \pounds \copyright$
+
+Keyboard symbols: $+  -  =  <  >  /  :  !  '  |  [  ]  (  )$
+
+\noindent 
+But for longer tests we will use the equation environment so that we don't overrun the line if we increase the font size.
+
+Greek:
+\begin{equation}
+\alpha  \beta  \gamma  \delta  \epsilon  \varepsilon  \zeta  \eta  \theta  \vartheta  \iota  \kappa  \lambda  \mu  \nu  \xi  o  \pi  \varpi  \rho  \varrho  \sigma  \varsigma  \tau  \upsilon  \phi  \varphi  \chi  \psi  \omega
+\end{equation}
+
+Upper case Greek:
+\begin{equation}
+\Gamma  \Delta  \Theta  \Lambda  \Xi  \Pi  \Sigma  \Upsilon  \Phi  \Psi  \Omega
+\end{equation}
+
+Normal, lower case:
+\begin{equation}
+a  b  c  d  e  f  g  h  i  j  k  l  m  n  o  p  q  r  s  t  u  v  w  x  y  z
+\end{equation}
+
+Normal, upper case:
+\begin{equation}
+A  B  C  D  E  F  G  H  I  J  K  L  M  N  O  P  Q  R  S  T  U  V  W  X  Y  Z  
+\end{equation}
+
+Bold using boldmath, lower case:\boldmath
+\begin{equation}
+a  b  c  d  e  f  g  h  i  j  k  l  m  n  o  p  q  r  s  t  u  v  w  x  y  z
+\end{equation}\unboldmath
+
+Bold using boldmath, upper case:\boldmath
+\begin{equation}
+A  B  C  D  E  F  G  H  I  J  K  L  M  N  O  P  Q  R  S  T  U  V  W  X  Y  Z  
+\end{equation}\unboldmath
+
+
+Italic, lower case:
+\begin{equation}
+\mathit{a}~\mathit{b}~\mathit{c}~\mathit{d}~\mathit{e}~\mathit{f}~\mathit{g}~\mathit{h}~\mathit{i}~\mathit{j}~\mathit{k}~\mathit{l}~\mathit{m}~\mathit{n}~\mathit{o}~\mathit{p}~\mathit{q}~\mathit{r}~\mathit{s}~\mathit{t}~\mathit{u}~\mathit{v}~\mathit{w}~\mathit{x}~\mathit{y}~\mathit{z}
+\end{equation}
+
+Italic, upper case:
+\begin{equation}
+\mathit{A}~\mathit{B}~\mathit{C}~\mathit{D}~\mathit{E}~\mathit{F}~\mathit{G}~\mathit{H}~\mathit{I}~\mathit{J}~\mathit{K}~\mathit{L}~\mathit{M}~\mathit{N}~\mathit{O}~\mathit{P}~\mathit{Q}~\mathit{R}~\mathit{S}~\mathit{T}~\mathit{U}~\mathit{V}~\mathit{W}~\mathit{X}~\mathit{Y}~\mathit{Z}
+\end{equation}
+
+Roman, lower case:
+\begin{equation}
+\mathrm{a}  \mathrm{b}  \mathrm{c}  \mathrm{d}  \mathrm{e}  \mathrm{f}  \mathrm{g}  \mathrm{h}  \mathrm{i}  \mathrm{j}  \mathrm{k}  \mathrm{l}  \mathrm{m}  \mathrm{n}  \mathrm{o}  \mathrm{p}  \mathrm{q}  \mathrm{r}  \mathrm{s}  \mathrm{t}  \mathrm{u}  \mathrm{v}  \mathrm{w}  \mathrm{x}  \mathrm{y}  \mathrm{z}
+\end{equation}
+
+Roman, upper case:
+\begin{equation}
+\mathrm{A}  \mathrm{B}  \mathrm{C}  \mathrm{D}  \mathrm{E}  \mathrm{F}  \mathrm{G}  \mathrm{H}  \mathrm{I}  \mathrm{J}  \mathrm{K}  \mathrm{L}  \mathrm{M}  \mathrm{N}  \mathrm{O}  \mathrm{P}  \mathrm{Q}  \mathrm{R}  \mathrm{S}  \mathrm{T}  \mathrm{U}  \mathrm{V}  \mathrm{W}  \mathrm{X}  \mathrm{Y}  \mathrm{Z}
+\end{equation}
+
+Bold using bf, lower case:
+\begin{equation}
+\mathbf{a}  \mathbf{b}  \mathbf{c}  \mathbf{d}  \mathbf{e}  \mathbf{f}  \mathbf{g}  \mathbf{h}  \mathbf{i}  \mathbf{j}  \mathbf{k}  \mathbf{l}  \mathbf{m}  \mathbf{n}  \mathbf{o}  \mathbf{p}  \mathbf{q}  \mathbf{r}  \mathbf{s}  \mathbf{t}  \mathbf{u}  \mathbf{v}  \mathbf{w}  \mathbf{x}  \mathbf{y}  \mathbf{z}
+\end{equation}
+
+Bold using bf, upper case:
+\begin{equation}
+\mathbf{A}  \mathbf{B}  \mathbf{C}  \mathbf{D}  \mathbf{E}  \mathbf{F}  \mathbf{G}  \mathbf{H}  \mathbf{I}  \mathbf{J}  \mathbf{K}  \mathbf{L}  \mathbf{M}  \mathbf{N}  \mathbf{O}  \mathbf{P}  \mathbf{Q}  \mathbf{R}  \mathbf{S}  \mathbf{T}  \mathbf{U}  \mathbf{V}  \mathbf{W}  \mathbf{X}  \mathbf{Y}  \mathbf{Z}
+\end{equation}
+
+Calligraphic (upper case only):
+\begin{equation}
+\mathcal{A}  \mathcal{B}  \mathcal{C}  \mathcal{D}  \mathcal{E}  \mathcal{F}  \mathcal{G}  \mathcal{H}  \mathcal{I}  \mathcal{J}  \mathcal{K}  \mathcal{L}  \mathcal{M}  \mathcal{N}  \mathcal{O}  \mathcal{P}  \mathcal{Q}  \mathcal{R}  \mathcal{S}  \mathcal{T}  \mathcal{U}  \mathcal{V}  \mathcal{W}  \mathcal{X}  \mathcal{Y}  \mathcal{Z}
+\end{equation}
+
+Binary operators:
+\begin{equation}
+\pm \mp \times \div \cdot \ast \star \dagger \ddagger \amalg \cap \cup \uplus \sqcap \sqcup \vee \wedge \oplus \ominus \otimes \circ \bullet \diamond \oslash \odot \bigcirc \bigtriangleup \bigtriangledown \triangleleft \triangleright \setminus \wr
+\end{equation}
+
+Relations:
+\begin{equation}
+\le \leq \ll \subset \subseteq \sqsubseteq \in \vdash \models \ge \geq \gg \supset \supseteq \sqsubseteq \ni \dashv \perp \neq \doteq \approx \cong \equiv \propto \prec \preceq \parallel \| \sim \simeq \asymp \smile \frown \bowtie \succ \succeq \mid
+\end{equation}
+
+Negated:
+\begin{equation}
+\not< \not\le \not\leq \not\ll \not\subset \not\subseteq \not\sqsubseteq \not\in \notin \not\vdash \not\models \not> \not\ge \not\geq \not\gg \not\supset \not\supseteq \not\sqsubseteq \not\ni \not\dashv \not\perp \not= \not\doteq \not\approx \not\cong \not\equiv \not\propto \not\prec \not\preceq \not\sim \not\simeq \not\asymp \not\smile \not\frown \not\bowtie \not\succ \not\succeq
+\end{equation}
+
+Arrows:
+\begin{equation}
+\leftarrow \gets \Leftarrow \rightarrow \to \Rightarrow \leftrightarrow \Leftrightarrow \mapsto \hookleftarrow \leftharpoonup \leftharpoondown \rightleftharpoons \longleftarrow \Longleftarrow \longrightarrow \Longrightarrow 
+\end{equation}
+\begin{equation}
+\longleftrightarrow \Longleftrightarrow \iff \longmapsto \hookrightarrow \rightharpoonup \rightharpoondown \uparrow \Uparrow \downarrow \Downarrow \updownarrow \Updownarrow \nearrow \searrow \swarrow \nwarrow
+\end{equation}
+
+Other:
+\begin{equation}
+\aleph \hbar \imath \jmath \ell \wp \Re \Im \prime \emptyset \nabla \surd \partial \top \bot \vdash \dashv \forall \exists \neq \flat \natural \sharp \| \angle \backslash \triangle \clubsuit \diamondsuit \heartsuit \spadesuit \infty
+\end{equation}
+
+Symbols with two sizes: 
+\begin{center}
+$\sum \int \oint \prod \coprod \bigcap \bigcup \bigsqcup \bigvee \bigwedge \bigodot \bigotimes \bigoplus \biguplus$
+\end{center}
+\begin{equation}
+\sum \int \oint \prod \coprod \bigcap \bigcup \bigsqcup \bigvee \bigwedge \bigodot \bigotimes \bigoplus \biguplus
+\end{equation}
+
+Function names:
+\begin{equation}
+\arccos \arcsin \arctan \arg \cos \cosh \cot \coth \csc \deg \det 
+\end{equation}
+\begin{equation}
+\dim \exp \gcd \hom \inf \ker \lg \lim \liminf \limsup \ln \log 
+\end{equation}
+\begin{equation}
+\max \min \Pr \sec \sin \sinh \sup \tan \tanh
+\end{equation}
+
+Those with under-subscript available:
+\begin{equation}
+\det_{a} \gcd_{a} \inf_{a} \lim_{a} \liminf_{a} \limsup_{a} \max_{a} \min_{a} \Pr_{a} \sup_{a}
+\end{equation}
+
+Modulus:
+\begin{equation}
+a \bmod b \qquad a \pmod{b}
+\end{equation}
+
+Accents and under/over:
+\begin{equation}
+\hat{a} \check{a} \dot{a} \breve{a} \acute{a} \ddot{a} \grave{a} \tilde{a} \mathring{a} \bar{a} \vec{a} \widehat{aaa} \widetilde{aaa} \overline{aaa} \underline{aaa} \overbrace{aaa} \underbrace{aaa}
+\end{equation}
+
+Symbols left and right can be applied to:
+\begin{equation}
+\left( \frac{1}{2} \right) \left[ \frac{1}{2} \right] \left\{ \frac{1}{2} \right\} \left| \frac{1}{2} \right| \left/ \frac{1}{2} \right\backslash \left\lfloor \frac{1}{2} \right\rfloor \left\lceil \frac{1}{2} \right\rceil \left\langle \frac{1}{2} \right\rangle \left\uparrow \frac{1}{2} \right\uparrow \left\downarrow \frac{1}{2} \right\downarrow \left\updownarrow \frac{1}{2} \right\updownarrow \left\Uparrow \frac{1}{2} \right\Uparrow \left\Downarrow \frac{1}{2} \right\Downarrow \left\Updownarrow \frac{1}{2} \right\Updownarrow   
+\end{equation}
+
+Manual sizing:
+\begin{equation}
+\big( \big) \big[ \big] \big\{ \big\} \big\lfloor \big\rfloor \big\lceil \big\rceil \big\langle \big\rangle 
+\big/ \big\backslash \big| \big\| \big\uparrow \big\Uparrow \big\downarrow \big\Downarrow \big\updownarrow \big\Updownarrow
+\end{equation}
+\begin{equation}
+\Big( \Big) \Big[ \Big] \Big\{ \Big\} \Big\lfloor \Big\rfloor \Big\lceil \Big\rceil \Big\langle \Big\rangle 
+\Big/ \Big\backslash \Big| \Big\| \Big\uparrow \Big\Uparrow \Big\downarrow \Big\Downarrow \Big\updownarrow \Big\Updownarrow
+\end{equation}
+\begin{equation}
+\bigg( \bigg) \bigg[ \bigg] \bigg\{ \bigg\} \bigg\lfloor \bigg\rfloor \bigg\lceil \bigg\rceil \bigg\langle \bigg\rangle 
+\bigg/ \bigg\backslash \bigg| \bigg\| \bigg\uparrow \bigg\Uparrow \bigg\downarrow \bigg\Downarrow \bigg\updownarrow \bigg\Updownarrow
+\end{equation}
+\begin{equation}
+\Bigg( \Bigg) \Bigg[ \Bigg] \Bigg\{ \Bigg\} \Bigg\lfloor \Bigg\rfloor \Bigg\lceil \Bigg\rceil \Bigg\langle \Bigg\rangle 
+\bigg/ \bigg\backslash \bigg| \bigg\| \bigg\uparrow \bigg\Uparrow \bigg\downarrow \bigg\Downarrow \bigg\updownarrow \bigg\Updownarrow
+\end{equation}
+
+Dots:
+\begin{equation}
+a \ldots a \quad a \vdots a \quad  a \cdots a \quad  a \ddots a
+\end{equation}
+
+Horizontal spacing:
+\begin{equation}
+|~|\,|\:|\;|\quad | \qquad |
+\end{equation}
+
+\subsection{Standard mathematical structures}
+
+Three different ways to inline \begin{math}A_{i,j,k}^{2^n}\end{math} \(A_{i,j,k}^{2^n}\) $A_{i,j,k}^{2^n}$
+
+Four different ways to displaymath.
+\setcounter{equation}{99}
+\begin{equation}\label{equation}
+\sum_{i=1}^{15} x_i^2 = x_1^2 + x_2^2 + x_3^2 + x_4^2 + x_5^2 + x_6^2 + x_7^2 + x_8^2 + x_9^2 + x_{10}^2 + x_{11}^2 + x_{12}^2 + x_{13}^2 + x_{14}^2 + x_{15}^2 
+\end{equation}
+
+\begin{displaymath}
+x_1^2 = x_2^2 = x_3^2 = x_4^2 = x_5^2 = x_6^2 = x_7^2 = x_8^2 = x_9^2 = x_{10}^2 = x_{11}^2 = x_{12}^2 = x_{13}^2 = x_{14}^2 = x_{15}^2 
+\end{displaymath}
+
+\[
+\prod_{i=1}^{15} x_i^2 = x_1^2\ \ x_2^2\ \ x_3^2\ \ x_4^2\ \ x_5^2\ \ x_6^2\ \ x_7^2\ \ x_8^2\ \ x_9^2\ \ x_{10}^2\ \ x_{11}^2\ \ x_{12}^2\ \ x_{13}^2\ \ x_{14}^2\ \ x_{15}^2\ 
+\]
+
+$$
+\prod_{i=1}^{15} x_i^2 = x_1^2 \cdot x_2^2 \cdot x_3^2 \cdot x_4^2 \cdot x_5^2 \cdot x_6^2 \cdot x_7^2 \cdot x_8^2 \cdot x_9^2 \cdot x_{10}^2 \cdot x_{11}^2 \cdot x_{12}^2 \cdot x_{13}^2 \cdot x_{14}^2 \cdot x_{15}^2 
+$$
+
+One of the forms is numbered equation \ref{equation}.
+\[
+\sqrt{\sum_{i=1}^{13} x_i^2} = \sqrt{x_1^2 + x_2^2 + x_3^2 + x_4^2 + x_5^2 + x_6^2 + x_7^2 + x_8^2 + x_9^2 + x_{10}^2+ x_{11}^2 + x_{12}^2 + x_{13}^2 }
+\]
+
+\[
+\sqrt{\sum_{i=1}^{13} x_i^2} = \left(x_1^2 + x_2^2 + x_3^2 + x_4^2 + x_5^2 + x_6^2 + x_7^2 + x_8^2 + x_9^2 + x_{10}^2+ x_{11}^2 + x_{12}^2 + x_{13}^2 \right)^{\frac{1}{2}}
+\]
+
+Now for an equation array:
+\begin{eqnarray}
+\sum_{i=1}^{13} 2^i &=& 2^1 + 2^2 + 2^3 + 2^4 + 2^5 + 2^6 + 2^7 + 2^8 + 2^9 + 2^{10} + 2^{11} + 2^{12} + 2^{13}\nonumber\\
+&=&2 + 4 + 8 + 16 + 32 + 64 + 128 + 256 + 512 + 1024 + 2048 + 4096 + 8192 \nonumber\\
+&=&16382 
+\end{eqnarray}
+
+\begin{eqnarray*}
+\sum_{i=1}^{13} 2^i &=& 2^1 + 2^2 + 2^3 + 2^4 + 2^5 + 2^6 + 2^7 + 2^8 + 2^9 + 2^{10} + 2^{11} + 2^{12} + 2^{13}\\
+&=&2 + 4 + 8 + 16 + 32 + 64 + 128 + 256 + 512 + 1024 + 2048 + 4096 + 8192\\
+&=&16382 \qquad\mbox{here is some text in the formula to fill up the line at 12pt font}
+\end{eqnarray*}
+
+\[
+\left[\begin{array}{cc} a_{11} & a_{12}\\ a_{21} & a_{22}\end{array}\right]
+\]
+
+\[
+\left[\begin{array}{*{10}{c}} 
+1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+0 & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+0 & 0 & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+0 & 0 & 0 & 1 & 0 & 0 & 0 & 0 & 0 & 0 \\ 
+0 & 0 & 0 & 0 & 1 & 0 & 0 & 0 & 0 & 0 \\ 
+0 & 0 & 0 & 0 & 0 & 1 & 0 & 0 & 0 & 0 \\ 
+0 & 0 & 0 & 0 & 0 & 0 & 1 & 0 & 0 & 0 \\ 
+0 & 0 & 0 & 0 & 0 & 0 & 0 & 1 & 0 & 0 \\ 
+0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 1 & 0 \\ 
+0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 1 \\ 
+\end{array}\right]
+\]
+
+\begin{eqnarray*}
+\left|\begin{array}{cc} 1 & 2\\ 3 & 4\end{array}\right| &=& (1\times 4) - (2 \times 3)\\
+&=& 4-6 = -2
+\end{eqnarray*}
+
+\[
+\sqrt{a + \sqrt{\frac{b + c + d}{e}} + f}
+\]
+
+\[
+\overline{\underline{a} + \overline{b + \underline{c} + d} + \overline{\overline{e}}}
+\]
+
+\[
+\underbrace{a + \overbrace{b + c}^{=0} + d}_{\mbox{text}}
+\]
+
+\[
+\stackrel{a}{\longrightarrow}
+\]
+
+\[
+{a \atop b} {a \choose b}
+\]
+
+\begin{eqnarray*}
+&&a = b = c = d = e = f = g = h = i = j = k = l = m = n = o = p = q = r = s = t\\
+&&a < b < c < d < e < f < g < h < i < j < k < l < m < n < o < p < q < r < s < t\\
+&&a > b > c > d > e > f > g > h > i > j > k > l > m > n > o > p > q > r > s > t\\
+&&a \leq b \leq c \leq d \leq e \leq f \leq g \leq h \leq i \leq j \leq k \leq l \leq m \leq n \leq o \leq p \leq q \leq r \leq s \leq t\\
+&&a \geq b \geq c \geq d \geq e \geq f \geq g \geq h \geq i \geq j \geq k \geq l \geq m \geq n \geq o \geq p \geq q \geq r \geq s \geq t\\
+&&a + b + c + d + e + f + g + h + i + j + k + l + m + n + o + p + q + r + s + t + u\\
+&&a - b - c - d - e - f - g - h - i - j - k - l - m - n - o - p - q - r - s - t - u\\
+&&a \times b \times c \times d \times e \times f \times g \times h \times i \times j \times k \times l \times m \times n \times o \times p \times q \times r \times s \times t \times u\\
+&&a * b * c * d * e * f * g * h * i * j * k * l * m * n * o * p * q * r * s * t * u * v * w * x * y\\
+&&a \cdot b \cdot c \cdot d \cdot e \cdot f \cdot g \cdot h \cdot i \cdot j \cdot k \cdot l \cdot m \cdot n \cdot o \cdot p \cdot q \cdot r \cdot s \cdot t \cdot u \cdot v \cdot w \cdot x \cdot y \cdot z \cdot a \cdot b \cdot c\\
+&&a , b , c , d , e , f , g , h , i , j , k , l , m , n , o , p , q , r , s , t , u , v , w , x , y , z , a , b , c , d , e , f, g , h , i , j , k , l
+\end{eqnarray*}
+
+\[
+a + \frac{1}{b + \frac{1}{c + \frac{1}{d + \frac{1}{e + \frac{1}{f + \frac{1}{g + \frac{1}{h}}}}}}} \qquad a + \frac{1}{\displaystyle b + \frac{1}{\displaystyle c + \frac{1}{\displaystyle d + \frac{1}{\displaystyle e + \frac{1}{\displaystyle f + \frac{1}{\displaystyle g + \frac{1}{h}}}}}}}
+\]
+
+Testing new commands:
+\[ 
+\xsb \xsp \xsbnum{2}
+\]
+
+\newpage
+
+\section{Standard graphics}
+
+This section looks only at graphics available without the graphics packages, that is, internal to vanilla \LaTeX. Kopka and Daly \cite{KopkaDaly} explain that ``Standard \LaTeX does actually contain the means to make primative drawings on its own'' and they consider only the facets of picture that are in standard \LaTeX, not those that require additional packages. This is what we test as a basic starting point in the vanilla stress test. 
+
+\bigskip
+
+\setlength{\unitlength}{1pt}
+
+\newsavebox{\frametext}
+\savebox{\frametext}{\framebox(320,100){Made earlier!}}
+
+\noindent
+\begin{picture}(320,100)\thinlines
+\usebox{\frametext}
+\end{picture}
+
+\bigskip
+
+\noindent
+\begin{picture}(320,100)\thicklines
+\usebox{\frametext}
+\put(0,0){\vector(-1,1){20}}
+\put(0,100){\vector(-1,-1){20}}
+\put(-320,100){\vector(1,-1){20}}
+\put(-320,0){\vector(1,1){20}}
+\put(-80,50){\circle{100}}
+\put(-240,50){\circle{100}}
+\put(-160,50){\oval(100,30)}
+\put(-320,50){\line(1,0){80}}
+\put(0,50){\line(-1,0){80}}
+\qbezier(-240,0)(-160,50)(-80,0)
+\end{picture}
+
+\begin{thebibliography}{99}
+\bibitem{KopkaDaly} Kopka, H. and Daly, P., \textit{A Guide to \LaTeX}. Pearson Education Ltd., 1999
+\end{thebibliography}
+
+\end{document}
+
