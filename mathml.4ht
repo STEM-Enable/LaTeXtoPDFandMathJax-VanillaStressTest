@@ -822,8 +822,8 @@ accent="true">&\#x0332;</\a:mathml mo></\a:mathml munder>}%
 \let\D:displaylines\d:displaylines
 \Configure{displaylines}
    {\ifmmode
-     \def\A:displaylines{\HCode{<\a:mathml mtable displaystyle="true" 
-                                   \mml:class="displaylines">}}%This one may not be correct
+     \def\A:displaylines{\HCode{<\a:mathml mtable displaystyle="true"\Hnewline 
+                                   \mml:class="displaylines">}}
      \def\B:displaylines{\HCode{</\a:mathml mtable>}}%
      \def\C:displaylines{\HCode{<\a:mathml mtr\Hnewline
                               \mml:class="displaylines"><\a:mathml mtd>}}%
@@ -1313,7 +1313,7 @@ accent="true">&\#x0332;</\a:mathml mo></\a:mathml munder>}%
     {\Tg<\a:mathml mtr>}{\Tg</\a:mathml mtr>}
     {\Tg<\a:mathml mtd \mml:class="cases">}{\Tg</\a:mathml mtd>}
 \Configure{matrix}
-   {\Tg<\a:mathml mtable displaystyle="true"
+   {\Tg<\a:mathml mtable displaystyle="true"\Hnewline
         \a:mathml equalrows="false" \a:mathml equalcolumns="false"\Hnewline
           \mml:class="matrix">}
    {\Tg</\a:mathml mtable>}
@@ -1833,7 +1833,7 @@ accent="true">&\#x0332;</\a:mathml mo></\a:mathml munder>}%
    {\HCode{<\a:mathml mtr>}}    {\HCode{</\a:mathml mtr>}}
    {\HCode{\Hnewline<\a:mathml mtd>}}   {\HCode{</\a:mathml mtd>}}
 \Configure{subarray}
-   {\HCode{<\a:mathml mtable displaystyle="true"\mml:class="subarray\if c\Hlcr-c\fi"
+   {\HCode{<\a:mathml mtable displaystyle="true"\Hnewline \mml:class="subarray\if c\Hlcr-c\fi"
       \a:mathml rowspacing="0"
       \if c\Hlcr \a:mathml columnalign="center"\fi>}}
    {\HCode{</\a:mathml mtable>}}
@@ -1903,7 +1903,7 @@ accent="true">&\#x0332;</\a:mathml mo></\a:mathml munder>}%
 \Configure{underleftrightarrow}
   {\Tg<\a:mathml munder>\Tg<\a:mathml mrow\Hnewline>\:gobble}
   {\Tg</\a:mathml mrow>\mathop{\leftrightarrow}\Tg</\a:mathml munder>}
-\def\m:env#1{\HCode{<\a:mathml mtable displaystyle="true"
+\def\m:env#1{\HCode{<\a:mathml mtable displaystyle="true"\Hnewline
   \mml:class="#1"><\a:mathml mtr><\a:mathml mtd>}%
    \def\endm:env{\HCode
       {</\a:mathml mtd></\a:mathml mtr></\a:mathml mtable>}}}
@@ -2176,7 +2176,7 @@ accent="true">&\#x0332;</\a:mathml mo></\a:mathml munder>}%
                 \ConfigureHinput{amstex}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     % amstex.tex
-\def\m:env#1{\HCode{<\a:mathml mtable displaystyle="true"
+\def\m:env#1{\HCode{<\a:mathml mtable displaystyle="true"\Hnewline
   \mml:class="#1"><\a:mathml mtr><\a:mathml mtd>}%
    \def\endm:env{\HCode
       {</\a:mathml mtd></\a:mathml mtr></\a:mathml mtable>}}}
@@ -2185,12 +2185,12 @@ accent="true">&\#x0332;</\a:mathml mo></\a:mathml munder>}%
    {\bgroup\m:env{pmatrix}}
    {\endm:env\egroup}
 \Configure{multline}
-   {\HCode{<\a:mathml mtable displaystyle="true"\mml:class="multline">}}
+   {\HCode{<\a:mathml mtable displaystyle="true"\Hnewline \mml:class="multline">}}
    {\HCode{</\a:mathml mtable>}}
    {\HCode{<\a:mathml mtr\Hnewline\mml:class="multline"><\a:mathml mtd>}}
    {\HCode{</\a:mathml mtd></\a:mathml mtr>}}
 \Configure{smallmatrix}
-   {\HCode{<\a:mathml mtable displaystyle="true"\mml:class="smallmatrix">}}
+   {\HCode{<\a:mathml mtable displaystyle="true"\Hnewline \mml:class="smallmatrix">}}
    {\HCode{</\a:mathml mtable>}}
    {\HCode{<\a:mathml mtr\Hnewline\mml:class="smallmatrix">}}
    {\HCode{</\a:mathml mtr>}}
@@ -2202,35 +2202,35 @@ accent="true">&\#x0332;</\a:mathml mo></\a:mathml munder>}%
 \Configure{vmatrix}{\bgroup\m:env{vmatrix}}{\endm:env\egroup}
 \Configure{Vmatrix}{\bgroup\m:env{Vmatrix}}{\endm:env\egroup}
 \Configure{aligned}
-   {\HCode{<\a:mathml mtable displaystyle="true"\mml:class="aligned">}}
+   {\HCode{<\a:mathml mtable displaystyle="true"\Hnewline \mml:class="aligned">}}
    {\HCode{</\a:mathml mtable>}}
    {\HCode{<\a:mathml mtr\Hnewline\mml:class="aligned">}}
    {\HCode{</\a:mathml mtr>}}
    {\HCode{<\a:mathml mtd\Hnewline\mml:class="aligned">}}
    {\HCode{</\a:mathml mtd>}}
 \Configure{xalignat}
-   {\HCode{<\a:mathml mtable displaystyle="true"\mml:class="xalignat">}}
+   {\HCode{<\a:mathml mtable displaystyle="true"\Hnewline \mml:class="xalignat">}}
    {\HCode{</\a:mathml mtable>}}
    {\HCode{<\a:mathml mtr\Hnewline \mml:class="xalignat">}}
    {\HCode{</\a:mathml mtr>}}
    {\HCode{<\a:mathml mtd\Hnewline  \mml:class="xalignat">}}
    {\HCode{</\a:mathml mtd>}}
 \Configure{xxalignat}
-   {\HCode{<\a:mathml mtable displaystyle="true" \mml:class="xxalignat">}}
+   {\HCode{<\a:mathml mtable displaystyle="true"\Hnewline \mml:class="xxalignat">}}
    {\HCode{</\a:mathml mtable>}}
    {\HCode{<\a:mathml mtr\Hnewline  \mml:class="xxalignat">}}
    {\HCode{</\a:mathml mtr>}}
    {\HCode{<\a:mathml mtd\Hnewline  \mml:class="xxalignat">}}
    {\HCode{</\a:mathml mtd>}}
 \Configure{alignedat}
-   {\HCode{<\a:mathml mtable displaystyle="true" \mml:class="alignedat">}}
+   {\HCode{<\a:mathml mtable displaystyle="true"\Hnewline \mml:class="alignedat">}}
    {\HCode{</\a:mathml mtable>}}
    {\HCode{<\a:mathml mtr\Hnewline  \mml:class="alignedat">}}
    {\HCode{</\a:mathml mtr>}}
    {\HCode{<\a:mathml mtd\Hnewline \mml:class="alignedat">}}
    {\HCode{</\a:mathml mtd>}}
 \Configure{gathered}
-   {\HCode{<\a:mathml mtable displaystyle="true" \mml:class="gathered">}}
+   {\HCode{<\a:mathml mtable displaystyle="true"\Hnewline \mml:class="gathered">}}
    {\HCode{</\a:mathml mtable>}}
    {\HCode{<\a:mathml mtr\Hnewline \mml:class="gathered">}}
    {\HCode{</\a:mathml mtr>}}
@@ -2271,7 +2271,7 @@ accent="true">&\#x0332;</\a:mathml mo></\a:mathml munder>}%
 
 \Configure{text}{\AA:text{text}}{\BB:text}
 \Configure{format}
-   {\HCode{<\a:mathml mtable displaystyle="true" \mml:class="format">}}
+   {\HCode{<\a:mathml mtable displaystyle="true"\Hnewline \mml:class="format">}}
    {\HCode{</\a:mathml mtable>}}
    {\HCode{<\a:mathml mtr\Hnewline \mml:class="format">}}
    {\HCode{</\a:mathml mtr>}}
@@ -2313,14 +2313,14 @@ accent="true">&\#x0332;</\a:mathml mo></\a:mathml munder>}%
    {\Tg<\a:mathml mrow \mml:class="cases">}
    {\Tg</\a:mathml mrow>}
 \Configure{alignat}
-   {\HCode{<\a:mathml mtable displaystyle="true"\mml:class="alignat">}}
+   {\HCode{<\a:mathml mtable displaystyle="true"\Hnewline \mml:class="alignat">}}
    {\HCode{</\a:mathml mtable>}}
    {\HCode{<\a:mathml mtr\Hnewline \mml:class="alignat">}}
    {\HCode{</\a:mathml mtr>}}
    {\HCode{<\a:mathml mtd\Hnewline \mml:class="alignat">}}
    {\HCode{</\a:mathml mtd>}}
 \Configure{gather}
-   {\HCode{<\a:mathml mtable displaystyle="true" \mml:class="gather">}}
+   {\HCode{<\a:mathml mtable displaystyle="true"\Hnewline \mml:class="gather">}}
    {\HCode{</\a:mathml mtable>}}
    {\HCode{<\a:mathml mtr\Hnewline \mml:class="gather">}}
    {\HCode{</\a:mathml mtr>}}
@@ -2341,7 +2341,7 @@ accent="true">&\#x0332;</\a:mathml mo></\a:mathml munder>}%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     \:CheckOption{core}\if:Option \expandafter\endinput \fi
  \Configure{eqalign}
-   {\HCode{<\a:mathml mtable displaystyle="true" \mml:class="eqalign">}}
+   {\HCode{<\a:mathml mtable displaystyle="true"\Hnewline \mml:class="eqalign">}}
    {\HCode{</\a:mathml mtable>}}
    {\HCode{<\a:mathml mtr \Hnewline \mml:class="eqalign">}}
    {\IgnorePar\HCode{</\a:mathml mtr>}}
@@ -2373,7 +2373,7 @@ accent="true">&\#x0332;</\a:mathml mo></\a:mathml munder>}%
 
 
 \Configure{eqalignno}
-   {\HCode{<\a:mathml mtable displaystyle="true" \mml:class="eqalignno">}}
+   {\HCode{<\a:mathml mtable displaystyle="true"\Hnewline \mml:class="eqalignno">}}
    {\HCode{</\a:mathml mtable>}}
    {\HCode{<\a:mathml mtr\Hnewline \mml:class="eqalignno">}}
    {\HCode{</\a:mathml mtr>}}
@@ -2383,7 +2383,7 @@ accent="true">&\#x0332;</\a:mathml mo></\a:mathml munder>}%
   {\HCode{<\a:mathml mtr><\a:mathml mtd \mml:class="noalign" colspan="2">}}%
   {\HCode{</\a:mathml mtd></\a:mathml mtr>}}}
 \Configure{leqalignno}
-   {\HCode{<\a:mathml mtable displaystyle="true" \mml:class="leqalignno">}}
+   {\HCode{<\a:mathml mtable displaystyle="true"\Hnewline \mml:class="leqalignno">}}
    {\HCode{</\a:mathml mtable>}}
    {\HCode{<\a:mathml mtr\Hnewline \mml:class="leqalignno">}}
    {\HCode{</\a:mathml mtr>}}
@@ -2641,7 +2641,7 @@ accent="true">&\#x0332;</\a:mathml mo></\a:mathml munder>}%
 \let\D:displaylines\d:displaylines
 \Configure{displaylines}
    {\ifmmode
-     \def\A:displaylines{\HCode{<\a:mathml mtable displaystyle="true"
+     \def\A:displaylines{\HCode{<\a:mathml mtable displaystyle="true"\Hnewline
                                    \mml:class="displaylines">}}%
      \def\B:displaylines{\HCode{</\a:mathml mtable>}}%
      \def\C:displaylines{\HCode{<\a:mathml mtr\Hnewline
@@ -3132,7 +3132,7 @@ accent="true">&\#x0332;</\a:mathml mo></\a:mathml munder>}%
     {\Tg<\a:mathml mtr>}{\Tg</\a:mathml mtr>}
     {\Tg<\a:mathml mtd \mml:class="cases">}{\Tg</\a:mathml mtd>}
 \Configure{matrix}
-   {\Tg<\a:mathml mtable displaystyle="true"
+   {\Tg<\a:mathml mtable displaystyle="true"\Hnewline
         \a:mathml equalrows="false" \a:mathml equalcolumns="false"\Hnewline
           \mml:class="matrix">}
    {\Tg</\a:mathml mtable>}
@@ -3615,7 +3615,7 @@ accent="true">&\#x0332;</\a:mathml mo></\a:mathml munder>}%
                 \ConfigureHinput{gauss}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     \Configure{gmatrix}
-   {\HCode{<\a:mathml mtable displaystyle="true" \mml:class="gmatrix-\g@environment">}}
+   {\HCode{<\a:mathml mtable displaystyle="true"\Hnewline \mml:class="gmatrix-\g@environment">}}
    {\HCode{</\a:mathml mtable>}}
    {\HCode{<\a:mathml mtr\Hnewline \mml:class="gmatrix">}}
    {\HCode{</\a:mathml mtr>}}
